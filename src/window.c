@@ -1,12 +1,16 @@
-#include <SDL3/SDL.h>
-#include <SDL3/SDL_opengl.h>
-
 #include "window.h"
+#include "graphics.h"
 
+// globals
 SDL_Window* window = NULL;
 SDL_GLContext gl_context = NULL;
+bool keep_running = true;
 
-int create_window() {
+// locals
+static SDL_Event event;
+
+int create_window()
+{
 
 	if (!SDL_Init(SDL_INIT_VIDEO))
 	{
@@ -33,30 +37,28 @@ int create_window() {
 		return 1;
 	}
 
-	bool keep_running = true;
-	SDL_Event event;
+	return 0;
+}
 
-	while (keep_running)
+void update_window()
+{
+	while (SDL_PollEvent(&event))
 	{
-
-		while (SDL_PollEvent(&event))
-		{
-			if (event.type == SDL_EVENT_QUIT)
-				keep_running = false;
-		}
-
-		glClearColor(0.1f, 0.1f, 0.2f, 1.0f);
-		glClear(GL_COLOR_BUFFER_BIT);
-
-		SDL_GL_SwapWindow(window);
+		if (event.type == SDL_EVENT_QUIT)
+			keep_running = false;
 	}
+	
+	update_graphics();
 
+	SDL_GL_SwapWindow(window);
+}
+
+void destroy_window()
+{
 	SDL_GL_DestroyContext(gl_context);
 	SDL_DestroyWindow(window);
 	SDL_Quit();
 
 	gl_context = NULL;
 	window = NULL;
-
-	return 0;
 }

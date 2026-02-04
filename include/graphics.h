@@ -1,11 +1,14 @@
 #ifndef GRAPHICS_H
 #define GRAPHICS_H
 
-typedef struct {
+#include <zmath.h>
+#include "glad/glad.h"
 
-	double* position;
-	double* color;
+typedef struct vertex {
+	vec2_t position;
+	color_t color;
+} vertex_t;
 
-} Vertex;
+void update_graphics();
 
 #endif // GRAPHICS_H
