@@ -1,6 +1,7 @@
 .vs-code
 .vscode
 .vs
+.cache
 
 .git
 obj/
