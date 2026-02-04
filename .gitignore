@@ -1,3 +1,9 @@
+.vs-code
+.vscode
+.vs
+
 .git
 obj/
+
+compile_commands.json
 main
