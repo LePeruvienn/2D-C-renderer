@@ -1,7 +1,7 @@
 #ifndef GRAPHICS_H
 #define GRAPHICS_H
 
-#include <zmath.h>
+#include "zmath.h"
 #include "glad/glad.h"
 
 typedef struct vertex {
@@ -9,6 +9,10 @@ typedef struct vertex {
 	color_t color;
 } vertex_t;
 
+extern const GLuint VERTEX_ATTR_POSITION;
+extern const GLuint VERTEX_ATTR_COLOR;
+
+void init_graphics();
 void update_graphics();
 
 #endif // GRAPHICS_H
