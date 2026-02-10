@@ -11,16 +11,12 @@ int main(int argc, char** argv)
 		exit(1);
 	}
 
-	if (!gladLoadGLLoader((GLADloadproc) SDL_GL_GetProcAddress))
-	{
-		fprintf(stderr, "%s: Failed to initialize GLAD\n", argv[0]);
-		exit(2);
-	}
-
 	while(keep_running)
 	{
 		update_window();
 	}
 
 	destroy_window();
+
+	return 0;
 }

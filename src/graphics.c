@@ -1,7 +1,9 @@
 #include <stddef.h>
 #include <stdint.h>
 #include <stdlib.h>
+#include <stdio.h>
 #include "graphics.h"
+#include "shaders.h"
 
 // globals
 const GLuint VERTEX_ATTR_POSITION = 0;
@@ -9,6 +11,8 @@ const GLuint VERTEX_ATTR_COLOR = 1;
 
 // locals
 static const uint64_t DEFAULT_VERTICES_SIZE = 100;
+
+static GLuint shader_program;
 
 static GLuint vbo;
 static GLuint vao;
@@ -63,13 +67,19 @@ void draw_triangle()
 	add_vertices(vs, 3);
 }
 
-void load_shader()
-{
-
-}
-
 void init_graphics()
 {
+	GLuint vert_shader;
+	GLuint frag_shader;
+
+	GLuint shaders[] = {
+
+		create_shader("shaders/vert/default.glsl", GL_VERTEX_SHADER, &vert_shader),
+		create_shader("shaders/frag/default.glsl", GL_FRAGMENT_SHADER, &frag_shader)
+	};
+
+	create_shader_program(&shader_program, shaders, 2);
+
 	vertices = malloc(sizeof(vertex_t) * DEFAULT_VERTICES_SIZE);
 	vertices_size = DEFAULT_VERTICES_SIZE;
 
@@ -89,6 +99,8 @@ void init_graphics()
 	);
 
 	glEnableVertexAttribArray(VERTEX_ATTR_POSITION);
+	glEnableVertexAttribArray(VERTEX_ATTR_COLOR);
+
 	glVertexAttribPointer(
 		VERTEX_ATTR_POSITION,
 		2,
@@ -98,7 +110,6 @@ void init_graphics()
 		(void*)offsetof(vertex_t, position)
 	);
 
-	glEnableVertexAttribArray(VERTEX_ATTR_COLOR);
 	glVertexAttribPointer(
 		VERTEX_ATTR_COLOR,
 		3,
@@ -108,6 +119,7 @@ void init_graphics()
 		(void*)offsetof(vertex_t, color)
 	);
 
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	glBindVertexArray(0);
 }
 
@@ -116,7 +128,10 @@ void update_graphics()
 	glClearColor(0.1f, 0.1f, 0.2f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT);
 
+	glUseProgram(shader_program);
 	glBindVertexArray(vao);
+
+	// printf("Vertices amount: %lu\n", vertices_amount);
 
 	glDrawArrays(
 		GL_TRIANGLES,

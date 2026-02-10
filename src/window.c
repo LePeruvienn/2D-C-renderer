@@ -1,7 +1,12 @@
 #include "window.h"
 #include "graphics.h"
+#include <glad/glad.h>
+#include <stdio.h>
 
 // globals
+const unsigned int window_width = 800;
+const unsigned int window_height = 600;
+
 SDL_Window* window = NULL;
 SDL_GLContext gl_context = NULL;
 bool keep_running = true;
@@ -21,7 +26,7 @@ int create_window()
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3);
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
 
-	window = SDL_CreateWindow("Test", 800, 600, SDL_WINDOW_OPENGL);
+	window = SDL_CreateWindow("Test", window_width, window_height, SDL_WINDOW_OPENGL);
 
 	if (!window)
 	{
@@ -36,6 +41,16 @@ int create_window()
 		SDL_Log("Erreur OpenGL: %s", SDL_GetError());
 		return 1;
 	}
+
+	if (!gladLoadGLLoader((GLADloadproc) SDL_GL_GetProcAddress))
+	{
+		fprintf(stderr, "Error: failed to initialize GLAD\n");
+		return 1;
+	}
+
+	glViewport(0, 0, window_width, window_height);
+
+	init_graphics();
 
 	return 0;
 }
