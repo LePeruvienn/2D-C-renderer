@@ -52,15 +52,15 @@ void draw_triangle()
 	vertex_t vs[] = {
 		{
 			.position = { .x = 0.0f, .y = 1.0f },
-			.color    = { .r = 1.0f, .g = 1.0f, .b = 1.0f }
+			.color    = { .r = 1.0f, .g = 0.0f, .b = 0.0f }
 		},
 		{
-			.position = { .x = -1.0f, .y = 0.0f },
-			.color    = { .r = 1.0f, .g = 1.0f, .b = 1.0f }
+			.position = { .x = -1.0f, .y = -0.5f },
+			.color    = { .r = 0.0f, .g = 1.0f, .b = 0.0f }
 		},
 		{
-			.position = { .x = 1.0f, .y = 0.0f },
-			.color    = { .r = 1.0f, .g = 1.0f, .b = 1.0f }
+			.position = { .x = 1.0f, .y = -0.5f },
+			.color    = { .r = 0.0f, .g = 0.0f, .b = 1.0f }
 		}
 	};
 
@@ -72,11 +72,10 @@ void init_graphics()
 	GLuint vert_shader;
 	GLuint frag_shader;
 
-	GLuint shaders[] = {
+	create_shader("shaders/vert/default.glsl", GL_VERTEX_SHADER, &vert_shader);
+	create_shader("shaders/frag/default.glsl", GL_FRAGMENT_SHADER, &frag_shader);
 
-		create_shader("shaders/vert/default.glsl", GL_VERTEX_SHADER, &vert_shader),
-		create_shader("shaders/frag/default.glsl", GL_FRAGMENT_SHADER, &frag_shader)
-	};
+	GLuint shaders[] = {vert_shader, frag_shader};
 
 	create_shader_program(&shader_program, shaders, 2);
 
