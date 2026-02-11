@@ -17,8 +17,10 @@ static GLuint shader_program;
 
 static GLuint vbo;
 static GLuint vao;
+static GLuint ebo;
 
 static vertex_t* vertices;
+static unsigned int* indices;
 static uint64_t vertices_amount = 0;
 static uint64_t vertices_size = 0;
 
@@ -68,6 +70,30 @@ void draw_triangle()
 	add_vertices(vs, 3);
 }
 
+void draw_quad()
+{
+	vertex_t vs[] = {
+		{
+			.position = { .x = 1.0f, .y = 0.0f },
+			.color    = { .r = 1.0f, .g = 0.0f, .b = 0.0f }
+		},
+		{
+			.position = { .x = 0.0f, .y = 1.0f },
+			.color    = { .r = 0.0f, .g = 1.0f, .b = 0.0f }
+		},
+		{
+			.position = { .x = 0.0f, .y = 0.0f },
+			.color    = { .r = 0.0f, .g = 0.0f, .b = 1.0f }
+		},
+		{
+			.position = { .x = 1.0f, .y = 1.0f },
+			.color    = { .r = 0.0f, .g = 0.0f, .b = 1.0f }
+		},
+	};
+
+	add_vertices(vs, 6);
+}
+
 void init_graphics()
 {
 	printf("Renderer: %s\n", glGetString(GL_RENDERER));
@@ -90,7 +116,16 @@ void init_graphics()
 	init_camera();
 	link_camera(shader_program);
 
-	draw_triangle();
+	// draw_triangle();
+	draw_quad();
+
+	// TODO
+	indices = malloc(6 * sizeof(unsigned int));
+	indices[0] = 0; indices[1] = 1; indices[2] = 2;
+	indices[3] = 0; indices[4] = 3; indices[5] = 1;
+
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW); 
 
 	glGenVertexArrays(1, &vao);
 	glBindVertexArray(vao);
