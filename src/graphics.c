@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include "graphics.h"
 #include "shaders.h"
+#include "camera.h"
 
 // globals
 const GLuint VERTEX_ATTR_POSITION = 0;
@@ -69,9 +70,9 @@ void draw_triangle()
 
 void init_graphics()
 {
-    printf("Renderer: %s\n", glGetString(GL_RENDERER));
-    printf("Vendor: %s\n", glGetString(GL_VENDOR));
-    printf("Version: %s\n", glGetString(GL_VERSION));
+	printf("Renderer: %s\n", glGetString(GL_RENDERER));
+	printf("Vendor: %s\n", glGetString(GL_VENDOR));
+	printf("Version: %s\n", glGetString(GL_VERSION));
 
 	GLuint vert_shader;
 	GLuint frag_shader;
@@ -85,6 +86,9 @@ void init_graphics()
 
 	vertices = malloc(sizeof(vertex_t) * DEFAULT_VERTICES_SIZE);
 	vertices_size = DEFAULT_VERTICES_SIZE;
+
+	init_camera();
+	link_camera(shader_program);
 
 	draw_triangle();
 
@@ -128,13 +132,13 @@ void init_graphics()
 
 void update_graphics()
 {
-	glClearColor(0.1f, 0.1f, 0.2f, 1.0f);
+	glClearColor(0, 0, 0, 1);
 	glClear(GL_COLOR_BUFFER_BIT);
 
 	glUseProgram(shader_program);
 	glBindVertexArray(vao);
 
-	// printf("Vertices amount: %lu\n", vertices_amount);
+	update_camera();
 
 	glDrawArrays(
 		GL_TRIANGLES,

@@ -3,9 +3,16 @@
 layout(location = 0) in vec2 aVertexPosition;
 layout(location = 1) in vec3 aVertexColor;
 
+uniform vec2 uCameraPosition;
+uniform float uCameraZoom;
+uniform vec2 uScreenSize;
+
 out vec3 vColor;
 
 void main() {
+
 	vColor = aVertexColor;
-	gl_Position = vec4(aVertexPosition, 0.0, 1.0);
+	vec2 pos = aVertexPosition + uCameraPosition;
+
+	gl_Position = vec4(pos * uCameraZoom, 0.0, 1.0);
 }
