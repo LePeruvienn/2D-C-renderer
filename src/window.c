@@ -4,7 +4,7 @@
 #include <stdio.h>
 
 // globals
-const unsigned int window_width = 800;
+const unsigned int window_width = 1200;
 const unsigned int window_height = 600;
 
 SDL_Window* window = NULL;

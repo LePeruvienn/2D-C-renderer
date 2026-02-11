@@ -42,7 +42,23 @@ int get_shader_status(GLuint shader, GLenum pname)
 	if(!success)
 	{
 		glGetShaderInfoLog(shader, 512, NULL, infoLog);
-		printf("Error: Shader status failed, %s\n", infoLog);
+		fprintf(stderr, "Error: shader status failed, %s\n", infoLog);
+	}
+
+	return success;
+}
+
+int get_program_status(GLuint program, GLenum pname)
+{
+	int  success;
+	char infoLog[512];
+
+	glGetProgramiv(program, pname, &success);
+
+	if(!success)
+	{
+		glGetProgramInfoLog(program, 512, NULL, infoLog);
+		fprintf(stderr, "Error: program status failed, %s\n", infoLog);
 	}
 
 	return success;
@@ -57,6 +73,7 @@ int create_shader(char* path, GLuint type, GLuint* out)
 
 	if (get_source(path, &buf) != 0)
 	{
+		fprintf(stderr, "Error: get_source failed");
 		return 1;
 	}
 
@@ -67,6 +84,7 @@ int create_shader(char* path, GLuint type, GLuint* out)
 
 	if (!get_shader_status(shader, GL_COMPILE_STATUS))
 	{
+		fprintf(stderr, "Error: GL_COMPILE_STATUS failed");
 		return 2;
 	}
 
@@ -87,8 +105,9 @@ int create_shader_program(GLuint* out, GLuint* shaders, size_t size)
 
 	glLinkProgram(shader_program);
 
-	if (!get_shader_status(shader_program, GL_LINK_STATUS))
+	if (!get_program_status(shader_program, GL_LINK_STATUS))
 	{
+		fprintf(stderr, "Error: GL_LINK_STATUS failed");
 		return 1;
 	}
 

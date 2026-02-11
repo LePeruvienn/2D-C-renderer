@@ -69,6 +69,10 @@ void draw_triangle()
 
 void init_graphics()
 {
+    printf("Renderer: %s\n", glGetString(GL_RENDERER));
+    printf("Vendor: %s\n", glGetString(GL_VENDOR));
+    printf("Version: %s\n", glGetString(GL_VERSION));
+
 	GLuint vert_shader;
 	GLuint frag_shader;
 
