@@ -11,9 +11,6 @@ SDL_Window* window = NULL;
 SDL_GLContext gl_context = NULL;
 bool keep_running = true;
 
-// locals
-static SDL_Event event;
-
 int create_window()
 {
 
@@ -57,14 +54,7 @@ int create_window()
 
 void update_window()
 {
-	while (SDL_PollEvent(&event))
-	{
-		if (event.type == SDL_EVENT_QUIT)
-			keep_running = false;
-	}
-	
 	update_graphics();
-
 	SDL_GL_SwapWindow(window);
 }
 
