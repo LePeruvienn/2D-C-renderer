@@ -5,7 +5,7 @@
 #include "camera.h"
 #include "glad/glad.h"
 
-const float speed = 0.00001;
+const float speed = 0.0001;
 
 void update_input()
 {
