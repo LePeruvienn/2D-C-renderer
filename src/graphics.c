@@ -91,7 +91,7 @@ void draw_quad()
 		},
 	};
 
-	add_vertices(vs, 6);
+	add_vertices(vs, 4);
 }
 
 void init_graphics()
@@ -124,9 +124,6 @@ void init_graphics()
 	indices[0] = 0; indices[1] = 1; indices[2] = 2;
 	indices[3] = 0; indices[4] = 3; indices[5] = 1;
 
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW); 
-
 	glGenVertexArrays(1, &vao);
 	glBindVertexArray(vao);
 
@@ -139,6 +136,10 @@ void init_graphics()
 		vertices,
 		GL_STATIC_DRAW
 	);
+
+	glGenBuffers(1, &ebo);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int) * 6, indices, GL_STATIC_DRAW); 
 
 	glEnableVertexAttribArray(VERTEX_ATTR_POSITION);
 	glEnableVertexAttribArray(VERTEX_ATTR_COLOR);
@@ -175,10 +176,12 @@ void update_graphics()
 
 	update_camera();
 
+	/*
 	glDrawArrays(
 		GL_TRIANGLES,
 		0,
-		vertices_amount);
+		vertices_amount); */
+	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
 	glBindVertexArray(0);
 
