@@ -16,23 +16,23 @@ void update_input()
 	{
 		camera.position.y += speed;
 	}
-	else if (key_states[SDL_SCANCODE_A])
+	if (key_states[SDL_SCANCODE_A])
 	{
 		camera.position.x -= speed;
 	}
-	else if (key_states[SDL_SCANCODE_S])
+	if (key_states[SDL_SCANCODE_S])
 	{
 		camera.position.y -= speed;
 	}
-	else if (key_states[SDL_SCANCODE_D])
+	if (key_states[SDL_SCANCODE_D])
 	{
 		camera.position.x += speed;
 	}
-	else if (key_states[SDL_SCANCODE_Q])
+	if (key_states[SDL_SCANCODE_Q])
 	{
 		camera.zoom -= speed;
 	}
-	else if (key_states[SDL_SCANCODE_E])
+	if (key_states[SDL_SCANCODE_E])
 	{
 		camera.zoom += speed;
 	}

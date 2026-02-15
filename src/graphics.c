@@ -103,8 +103,8 @@ void init_graphics()
 	GLuint vert_shader;
 	GLuint frag_shader;
 
-	create_shader("shaders/vert/default.glsl", GL_VERTEX_SHADER, &vert_shader);
-	create_shader("shaders/frag/default.glsl", GL_FRAGMENT_SHADER, &frag_shader);
+	create_shader("assets/shaders/vert/default.glsl", GL_VERTEX_SHADER, &vert_shader);
+	create_shader("assets/shaders/frag/default.glsl", GL_FRAGMENT_SHADER, &frag_shader);
 
 	GLuint shaders[] = {vert_shader, frag_shader};
 
