@@ -9,6 +9,11 @@ typedef struct vertex {
 	color_t color;
 } vertex_t;
 
+typedef struct vertexUV {
+	vec2_t position;
+	vec2_t texture;
+} vertexUV_t;
+
 extern const GLuint VERTEX_ATTR_POSITION;
 extern const GLuint VERTEX_ATTR_COLOR;
 

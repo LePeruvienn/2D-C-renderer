@@ -1,17 +1,18 @@
 #version 330 core
 
 layout(location = 0) in vec2 aVertexPosition;
-layout(location = 1) in vec3 aVertexColor;
+layout(location = 2) in vec2 aVertexTexture;
 
 uniform vec2 uCameraPosition;
 uniform float uCameraZoom;
 uniform vec2 uScreenSize;
 
-out vec3 vColor;
+out vec2 vTexture;
 
 void main() {
 
-	vColor = aVertexColor;
+	vTexture = aVertexTexture;
+
 	vec2 pos = aVertexPosition + uCameraPosition;
 
 	pos.x *= uScreenSize.y / uScreenSize.x;
