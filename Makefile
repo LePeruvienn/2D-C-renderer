@@ -2,7 +2,7 @@ DEBUG = 1
 
 CC = gcc
 CFLAGS = -g -Wall -Werror -std=c99 -Iinclude
-LDFLAGS = $(shell pkg-config --cflags --libs sdl3) -lpng -lz
+LDFLAGS = $(shell pkg-config --cflags --libs sdl3) -lpng -lz -lm
 
 SRCDIR = src
 OBJDIR = obj
