@@ -8,12 +8,6 @@
 #include "image.h"
 #include "zmath.h"
 
-// globals
-const GLuint VERTEX_ATTR_POSITION = 0;
-const GLuint VERTEX_ATTR_COLOR = 1;
-const GLuint VERTEX_ATTR_TEXTURE = 2;
-const GLuint VERTEX_ATTR_MODEL = 3;
-
 // locals
 static const uint64_t DEFAULT_SIZE = 100;
 

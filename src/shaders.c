@@ -4,6 +4,11 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+const GLuint VERTEX_ATTR_POSITION = 0;
+const GLuint VERTEX_ATTR_COLOR = 1;
+const GLuint VERTEX_ATTR_TEXTURE = 2;
+const GLuint VERTEX_ATTR_MODEL = 3;
+
 int get_source(char* path, char** out)
 {
 
