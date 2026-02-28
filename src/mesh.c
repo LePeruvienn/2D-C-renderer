@@ -49,7 +49,7 @@ mesh_t* create_mesh_quad()
 		GL_STATIC_DRAW
 	);
 
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh->vbo);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh->ebo);
 
 	glBufferData(
 		mesh->ebo,
@@ -61,14 +61,25 @@ mesh_t* create_mesh_quad()
 	glEnableVertexAttribArray(VERTEX_ATTR_TEXTURE);
 	glEnableVertexAttribArray(VERTEX_ATTR_POSITION);
 
-	// TODO VERTEX ATTRIB DATA !!!
+	glVertexAttribPointer(
+		VERTEX_ATTR_POSITION,
+		2,
+		GL_FLOAT,
+		GL_FALSE,
+		sizeof(vertexUV_t),
+		(void*)offsetof(vertexUV_t, position)
+	);
+
+	glVertexAttribPointer(
+		VERTEX_ATTR_TEXTURE,
+		2,
+		GL_FLOAT,
+		GL_FALSE,
+		sizeof(vertexUV_t),
+		(void*)offsetof(vertexUV_t, texture)
+	);
 
 	glBindVertexArray(0);
 
 	return mesh;
-}
-
-void free_mesh(mesh_t* mesh)
-{
-
 }

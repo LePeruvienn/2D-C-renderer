@@ -12,6 +12,5 @@ typedef struct mesh
 } mesh_t;
 
 mesh_t* create_mesh_quad();
-void free_mesh(mesh_t* mesh);
 
 #endif // MESH_H
