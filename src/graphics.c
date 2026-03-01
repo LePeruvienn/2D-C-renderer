@@ -1,14 +1,12 @@
 #include <stddef.h>
 #include <stdint.h>
-#include <stdlib.h>
-#include <stdio.h>
 #include "graphics.h"
 #include "shaders.h"
 #include "camera.h"
-#include "image.h"
 #include "sprite.h"
 #include "zmath.h"
 #include "batcher.h"
+#include "debug.h"
 
 static GLuint shader_program;
 static GLint u_texture_location;
@@ -38,20 +36,18 @@ void init_shaders()
 }
 void init_graphics()
 {
-	printf("GPU: %s\n", glGetString(GL_RENDERER));
-	printf("Vendor: %s\n", glGetString(GL_VENDOR));
-	printf("Version: %s\n", glGetString(GL_VERSION));
+	init_debug();
 
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-	init_shaders();
+	GL_CALL(init_shaders());
 	bind_texture(shader_program);
 
 	init_camera();
 	link_camera(shader_program);
 
-	init_draw(shader_program);
+	GL_CALL(init_draw(shader_program));
 
 	s1.transform.pos.x = 0;
 	s1.transform.pos.y = 0;
@@ -70,12 +66,6 @@ void init_graphics()
 	s3.transform.scale.x = 1;
 	s3.transform.scale.y = 1;
 	s3.transform.rotation = 0;
-
-	GLenum err = glGetError();
-
-	if (err != GL_NO_ERROR) {
-		printf("OpenGL Error: %x\n", err);
-	}
 }
 
 void update_graphics()
