@@ -8,6 +8,8 @@ typedef struct mesh
 	GLuint vao;
 	GLuint vbo;
 	GLuint ebo;
+	unsigned int indices_amount;
+	unsigned int vertices_amount;
 
 } mesh_t;
 

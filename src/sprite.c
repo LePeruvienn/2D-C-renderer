@@ -1,16 +1,20 @@
 #include "sprite.h"
 #include <stdlib.h>
 
-sprite_t* create_sprite(char* filepath)
+sprite_t* create_sprite(mesh_t* mesh, texture_t* tex)
 {
 	sprite_t* sprite = malloc(sizeof(sprite_t));
-	sprite->tex = create_texture(filepath);
 
-	sprite->pos.x = 0;
-	sprite->pos.y = 0;
+	sprite->tex = tex;
+	sprite->mesh = mesh;
 
-	sprite->scale.x = 0;
-	sprite->scale.y = 0;
+	sprite->transform.pos.x = 0;
+	sprite->transform.pos.y = 0;
+
+	sprite->transform.scale.y = 1;
+	sprite->transform.scale.y = 1;
+
+	sprite->transform.rotation = 0.0;
 
 	return sprite;
 }

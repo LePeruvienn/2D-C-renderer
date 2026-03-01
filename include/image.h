@@ -17,7 +17,6 @@ typedef struct image
 
 image_t* create_image(char* filepath);
 void load_image(image_t* img);
-
-int load_png(char* path, GLuint* out, int* width, int* height);
+void free_image(image_t* img);
 
 #endif // IMAGE_H

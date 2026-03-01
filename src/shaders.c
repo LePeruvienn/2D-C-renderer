@@ -7,7 +7,9 @@
 const GLuint VERTEX_ATTR_POSITION = 0;
 const GLuint VERTEX_ATTR_COLOR = 1;
 const GLuint VERTEX_ATTR_TEXTURE = 2;
-const GLuint VERTEX_ATTR_MODEL = 3;
+const GLuint VERTEX_ATTR_TRANSFORM_POSITION = 3;
+const GLuint VERTEX_ATTR_TRANSFORM_SCALE = 4;
+const GLuint VERTEX_ATTR_TRANSFORM_ROTATION = 5;
 
 int get_source(char* path, char** out)
 {

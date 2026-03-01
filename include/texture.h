@@ -8,13 +8,12 @@
 typedef struct texture
 {
 	GLuint id;
-	image_t* img;
-	bool is_loaded;
+	int width;
+	int height;
 
 } texture_t;
 
 
-texture_t* create_texture(char* filepath);
-void load_texture(texture_t* tex);
+texture_t* create_texture(image_t* img);
 
 #endif // TEXTURE_H

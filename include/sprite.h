@@ -1,18 +1,19 @@
 #ifndef SPRITE_H
 #define SPRITE_H
 
-#include "zmath.h"
 #include "texture.h"
+#include "transform.h"
+#include "mesh.h"
 
 typedef struct sprite
 {
-	vec2_t pos;
-	vec2_t scale;
+	transform_t transform;
+	mesh_t* mesh;
 	texture_t* tex;
 
 } sprite_t;
 
 
-sprite_t* create_sprite(char* filepath);
+sprite_t* create_sprite(mesh_t* mesh, texture_t* tex);
 
 #endif // SPRITE_H
