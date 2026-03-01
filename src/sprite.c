@@ -18,3 +18,16 @@ sprite_t* create_sprite(mesh_t* mesh, texture_t* tex)
 
 	return sprite;
 }
+
+void set_sprite_transform(sprite_t* sprite, vec2_t pos, vec2_t scale, float rotation)
+{
+	sprite->transform.pos = pos;
+	sprite->transform.scale = scale;
+	sprite->transform.rotation = rotation;
+}
+
+void set_sprite_pos(sprite_t* sprite, vec2_t pos)
+{
+	sprite->transform.pos = pos;
+}
+

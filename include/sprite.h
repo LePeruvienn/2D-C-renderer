@@ -15,5 +15,7 @@ typedef struct sprite
 
 
 sprite_t* create_sprite(mesh_t* mesh, texture_t* tex);
+void set_sprite_transform(sprite_t* sprite, vec2_t pos, vec2_t scale, float rotation);
+void set_sprite_pos(sprite_t* sprite, vec2_t pos);
 
 #endif // SPRITE_H

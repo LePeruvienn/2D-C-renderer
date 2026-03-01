@@ -11,9 +11,9 @@
 static GLuint shader_program;
 static GLint u_texture_location;
 
-static sprite_t s1;
-static sprite_t s2;
-static sprite_t s3;
+static sprite_t* s1;
+static sprite_t* s2;
+static sprite_t* s3;
 
 void bind_texture(GLuint program)
 {
@@ -49,23 +49,26 @@ void init_graphics()
 
 	GL_CALL(init_draw(shader_program));
 
-	s1.transform.pos.x = 0;
-	s1.transform.pos.y = 0;
-	s1.transform.scale.x = 1;
-	s1.transform.scale.y = 1;
-	s1.transform.rotation = 0;
+	image_t* img1 = create_image("assets/img/brotabro.png");
+	image_t* img2 = create_image("assets/img/brotato.png");
 
-	s2.transform.pos.x = 1.0;
-	s2.transform.pos.y = 1.0;
-	s2.transform.scale.x = 1;
-	s2.transform.scale.y = 1;
-	s2.transform.rotation = 0;
+	load_image(img1);
+	load_image(img2);
 
-	s3.transform.pos.x = 0;
-	s3.transform.pos.y = 1.0;
-	s3.transform.scale.x = 1;
-	s3.transform.scale.y = 1;
-	s3.transform.rotation = 0;
+	texture_t* tex1 = create_texture(img1);
+	texture_t* tex2 = create_texture(img2);
+	free_image(img1);
+	free_image(img2);
+
+	mesh_t* mesh = create_mesh_quad();
+
+	s1 = create_sprite(mesh, tex1);
+	s2 = create_sprite(mesh, tex1);
+	s3 = create_sprite(mesh, tex2);
+
+	set_sprite_pos(s1, (vec2_t) {0.0, 0.0});
+	set_sprite_pos(s2, (vec2_t) {1.0, 0.0});
+	set_sprite_pos(s3, (vec2_t) {0.0, 1.0});
 }
 
 void update_graphics()
@@ -78,9 +81,9 @@ void update_graphics()
 
 	begin_draw();
 
-	draw(&s1);
-	draw(&s2);
-	draw(&s3);
+	draw(s1);
+	draw(s2);
+	draw(s3);
 
 	flush_draw();
 }

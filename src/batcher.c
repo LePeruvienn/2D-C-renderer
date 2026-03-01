@@ -57,7 +57,6 @@ void gl_init()
 	glVertexAttribDivisor(VERTEX_ATTR_TRANSFORM_SCALE, 1);
 	glVertexAttribDivisor(VERTEX_ATTR_TRANSFORM_ROTATION, 1);
 
-
 	glBindVertexArray(0);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
@@ -65,16 +64,6 @@ void gl_init()
 void init_draw(GLuint shader)
 {
 	sprites_amount = 0;
-
-	current_mesh = create_mesh_quad();
-	
-	image_t* img = create_image("assets/img/brotabro.png");
-	load_image(img);
-	current_tex = create_texture(img);
-	free_image(img);
-
-	gl_init();
-
 	current_shader = shader;
 }
 
@@ -85,6 +74,32 @@ void begin_draw()
 
 void draw(sprite_t* sprite)
 {
+	if(current_mesh == NULL)
+	{
+		current_mesh = sprite->mesh;
+		gl_init();
+	}
+
+	if(current_tex == NULL)
+	{
+		current_tex = sprite->tex;
+	}
+
+	if (current_tex->id != sprite->tex->id)
+	{
+		flush_draw();
+		begin_draw();
+		current_tex = sprite->tex;
+	}
+
+	if (current_mesh != sprite->mesh)
+	{
+		flush_draw();
+		begin_draw();
+		current_mesh = sprite->mesh;
+		gl_init();
+	}
+
 	sprites[sprites_amount] = sprite;
 	transforms[sprites_amount] = sprite->transform;
 
@@ -93,6 +108,9 @@ void draw(sprite_t* sprite)
 
 void flush_draw()
 {
+	if (sprites_amount == 0)
+		return;
+
 	glBindVertexArray(current_mesh->vao);
 	glBindBuffer(GL_ARRAY_BUFFER, ibo);
 
