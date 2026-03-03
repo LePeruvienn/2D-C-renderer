@@ -1,4 +1,5 @@
 #include "debug.h"
+#include <stdio.h>
 
 void check_gl_error(char* expr, char* file, int line)
 {

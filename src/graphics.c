@@ -34,6 +34,7 @@ void init_shaders()
 
 	create_shader_program(&shader_program, shaders, 2);
 }
+
 void init_graphics()
 {
 	init_debug();
