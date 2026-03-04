@@ -7,6 +7,7 @@
 #include "zmath.h"
 #include "batcher.h"
 #include "debug.h"
+#include "atlas.h"
 
 static GLuint shader_program;
 static GLint u_texture_location;
@@ -50,14 +51,22 @@ void init_graphics()
 
 	GL_CALL(init_draw(shader_program));
 
+	atlas_t* atlas = create_atlas(1920, 1920, 4);
+
 	image_t* img1 = create_image("assets/img/brotabro.png");
 	image_t* img2 = create_image("assets/img/brotato.png");
 
 	load_image(img1);
 	load_image(img2);
 
+	atlas_add_image(atlas, img1);
+	atlas_add_image(atlas, img2);
+
+	atlas_write_image(atlas, "atlas.png");
+
 	texture_t* tex1 = create_texture(img1);
 	texture_t* tex2 = create_texture(img2);
+
 	free_image(img1);
 	free_image(img2);
 

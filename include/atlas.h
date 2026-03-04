@@ -13,10 +13,14 @@ typedef struct atlas {
 	unsigned int cursor_y;
 	unsigned int row_height;
 	unsigned char* data;
+	bool is_empty;
 
 } atlas_t;
 
 atlas_t* create_atlas(int width, int height, int channels);
+void free_atlas(atlas_t* atlas);
 void atlas_add_image(atlas_t* atlas, image_t* img);
+
+void atlas_write_image(atlas_t* atlas, char* filename);
 
 #endif // ATLAS_H
