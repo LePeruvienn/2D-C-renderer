@@ -4,11 +4,13 @@
 #include "texture.h"
 #include "transform.h"
 #include "mesh.h"
+#include "graphics.h"
 
 typedef struct sprite
 {
 	transform_t transform;
 	mesh_t* mesh;
+	uv_t uv;
 	texture_t* tex;
 
 } sprite_t;

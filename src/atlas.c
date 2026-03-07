@@ -8,7 +8,6 @@
 atlas_t* create_atlas(int width, int height, int channels)
 {
 	atlas_t* atlas = malloc(sizeof(atlas_t));
-
 	atlas->width = width;
 	atlas->height = height;
 	atlas->channels = channels;
@@ -36,7 +35,7 @@ void free_atlas(atlas_t* atlas)
 	free(atlas);
 }
 
-void atlas_add_image(atlas_t* atlas, image_t* img)
+void atlas_add_image(atlas_t* atlas, image_t* img, uv_rect_t* uv)
 {
 	bool not_same_channels = atlas->channels != img->channels;
 
@@ -62,13 +61,21 @@ void atlas_add_image(atlas_t* atlas, image_t* img)
 	unsigned int cursor_x = atlas->cursor_x;
 	unsigned int cursor_y = atlas->cursor_y;
 
+	uv->min.x = (float) cursor_x / (float) atlas->width;
+	uv->min.y = (float) cursor_y / (float) atlas->height;
+
+	uv->max.x = (float) (cursor_x + img->width)  / (float) atlas->width;
+	uv->max.y = (float) (cursor_y + img->height) / (float) atlas->height;
+
 	for (unsigned int img_y = 0; img_y < img->height; img_y++)
 	{
-		unsigned int atlas_offset = ((cursor_y + img_y) * atlas->width * channels) + (cursor_x * channels);
+		unsigned int atlas_offset = ((cursor_y + img->height - img_y) * atlas->width * channels) + (cursor_x * channels);
 		unsigned int img_offset   = img_y * img->width * channels;
 
 		memcpy(atlas->data + atlas_offset, img->data + img_offset, img->width * channels);
 	}
+
+	atlas->cursor_x += img->width;
 
 	if (atlas->is_empty)
 	{

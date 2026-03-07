@@ -16,6 +16,9 @@ sprite_t* create_sprite(mesh_t* mesh, texture_t* tex)
 
 	sprite->transform.rotation = 0.0;
 
+	sprite->uv.x = 0.0;
+	sprite->uv.y = 0.0;
+
 	return sprite;
 }
 

@@ -51,7 +51,7 @@ void init_graphics()
 
 	GL_CALL(init_draw(shader_program));
 
-	atlas_t* atlas = create_atlas(1920, 1920, 4);
+	atlas_t* atlas = create_atlas(1920, 1080, 4);
 
 	image_t* img1 = create_image("assets/img/brotabro.png");
 	image_t* img2 = create_image("assets/img/brotato.png");
@@ -59,22 +59,24 @@ void init_graphics()
 	load_image(img1);
 	load_image(img2);
 
-	atlas_add_image(atlas, img1);
-	atlas_add_image(atlas, img2);
+	uv_rect_t uv1;
+	uv_rect_t uv2;
 
-	atlas_write_image(atlas, "atlas.png");
-
-	texture_t* tex1 = create_texture(img1);
-	texture_t* tex2 = create_texture(img2);
+	atlas_add_image(atlas, img1, &uv1);
+	atlas_add_image(atlas, img2, &uv2);
 
 	free_image(img1);
 	free_image(img2);
 
+	// atlas_write_image(atlas, "atlas.png");
+
+	texture_t* tex = create_texture_atlas(atlas);
+
 	mesh_t* mesh = create_mesh_quad();
 
-	s1 = create_sprite(mesh, tex1);
-	s2 = create_sprite(mesh, tex1);
-	s3 = create_sprite(mesh, tex2);
+	s1 = create_sprite(mesh, tex);
+	s2 = create_sprite(mesh, tex);
+	s3 = create_sprite(mesh, tex);
 
 	set_sprite_pos(s1, (vec2_t) {0.0, 0.0});
 	set_sprite_pos(s2, (vec2_t) {1.0, 0.0});
