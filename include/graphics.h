@@ -4,15 +4,15 @@
 #include "zmath.h"
 #include "glad/glad.h"
 
-typedef vec2_t vertex_t;
 typedef vec2_t uv_t;
 
-typedef struct vertexUV
+typedef struct vertex
 {
 	vec2_t position;
-	vec2_t texture;
+	color_t color;
+	uv_t uv;
 
-} vertexUV_t;
+} vertex_t;
 
 extern const GLuint VERTEX_ATTR_POSITION;
 extern const GLuint VERTEX_ATTR_COLOR;

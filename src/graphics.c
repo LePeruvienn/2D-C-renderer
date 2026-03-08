@@ -74,9 +74,9 @@ void init_graphics()
 
 	mesh_t* mesh = create_mesh_quad();
 
-	s1 = create_sprite(mesh, tex);
-	s2 = create_sprite(mesh, tex);
-	s3 = create_sprite(mesh, tex);
+	s1 = create_sprite(mesh, tex, uv1);
+	s2 = create_sprite(mesh, tex, uv2);
+	s3 = create_sprite(mesh, tex, uv2);
 
 	set_sprite_pos(s1, (vec2_t) {0.0, 0.0});
 	set_sprite_pos(s2, (vec2_t) {1.0, 0.0});

@@ -7,9 +7,10 @@ typedef struct vec2 {
 } vec2_t;
 
 typedef struct color {
-	float r;
-	float g;
-	float b;
+	unsigned int r;
+	unsigned int g;
+	unsigned int b;
+	unsigned int a;
 } color_t;
 
 #endif // MATH_H

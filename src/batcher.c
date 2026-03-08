@@ -13,7 +13,7 @@ static texture_t* current_tex = NULL;
 static GLuint current_shader;
 
 static GLuint ibo;
-static transform_t transforms[MAX_SPRITES_AMOUNT];
+static sprite_instance_t instances[MAX_SPRITES_AMOUNT];
 
 void gl_init()
 {
@@ -22,40 +22,51 @@ void gl_init()
 	glBindVertexArray(current_mesh->vao);
 	glBindBuffer(GL_ARRAY_BUFFER, ibo);
 
-	glEnableVertexAttribArray(VERTEX_ATTR_TRANSFORM_POSITION);
-	glEnableVertexAttribArray(VERTEX_ATTR_TRANSFORM_SCALE);
-	glEnableVertexAttribArray(VERTEX_ATTR_TRANSFORM_ROTATION);
+	glEnableVertexAttribArray(SPRITE_ATTR_UVRECT);
+	glEnableVertexAttribArray(TRANSFORM_ATTR_POSITION);
+	glEnableVertexAttribArray(TRANSFORM_ATTR_SCALE);
+	glEnableVertexAttribArray(TRANSFORM_ATTR_ROTATION);
 
 	glVertexAttribPointer(
-		VERTEX_ATTR_TRANSFORM_POSITION,
-		2,
+		SPRITE_ATTR_UVRECT,
+		4,
 		GL_FLOAT,
 		GL_FALSE,
-		sizeof(transform_t),
-		(const void*) offsetof(transform_t, pos)
+		sizeof(sprite_instance_t),
+		(const void*) offsetof(sprite_instance_t, uv)
 	);
 
 	glVertexAttribPointer(
-		VERTEX_ATTR_TRANSFORM_SCALE,
+		TRANSFORM_ATTR_POSITION,
 		2,
 		GL_FLOAT,
 		GL_FALSE,
-		sizeof(transform_t),
-		(const void*) offsetof(transform_t, scale)
+		sizeof(sprite_instance_t),
+		(const void*) offsetof(sprite_instance_t, trans.pos)
 	);
 
 	glVertexAttribPointer(
-		VERTEX_ATTR_TRANSFORM_ROTATION,
+		TRANSFORM_ATTR_SCALE,
+		2,
+		GL_FLOAT,
+		GL_FALSE,
+		sizeof(sprite_instance_t),
+		(const void*) offsetof(sprite_instance_t, trans.scale)
+	);
+
+	glVertexAttribPointer(
+		TRANSFORM_ATTR_ROTATION,
 		1,
 		GL_FLOAT,
 		GL_FALSE,
-		sizeof(transform_t),
-		(const void*) offsetof(transform_t, rotation)
+		sizeof(sprite_instance_t),
+		(const void*) offsetof(sprite_instance_t, trans.rotation)
 	);
 
-	glVertexAttribDivisor(VERTEX_ATTR_TRANSFORM_POSITION, 1);
-	glVertexAttribDivisor(VERTEX_ATTR_TRANSFORM_SCALE, 1);
-	glVertexAttribDivisor(VERTEX_ATTR_TRANSFORM_ROTATION, 1);
+	glVertexAttribDivisor(SPRITE_ATTR_UVRECT, 1);
+	glVertexAttribDivisor(TRANSFORM_ATTR_POSITION, 1);
+	glVertexAttribDivisor(TRANSFORM_ATTR_SCALE, 1);
+	glVertexAttribDivisor(TRANSFORM_ATTR_ROTATION, 1);
 
 	glBindVertexArray(0);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
@@ -101,7 +112,9 @@ void draw(sprite_t* sprite)
 	}
 
 	sprites[sprites_amount] = sprite;
-	transforms[sprites_amount] = sprite->transform;
+
+	instances[sprites_amount].uv = sprite->uv;
+	instances[sprites_amount].trans = sprite->transform;
 
 	sprites_amount++;
 }
@@ -116,8 +129,8 @@ void flush_draw()
 
 	glBufferData(
 		GL_ARRAY_BUFFER,
-		sprites_amount * sizeof(transform_t),
-		transforms,
+		sprites_amount * sizeof(sprite_instance_t),
+		instances,
 		GL_DYNAMIC_DRAW
 	);
 

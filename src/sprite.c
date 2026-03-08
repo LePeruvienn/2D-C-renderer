@@ -1,12 +1,13 @@
 #include "sprite.h"
 #include <stdlib.h>
 
-sprite_t* create_sprite(mesh_t* mesh, texture_t* tex)
+sprite_t* create_sprite(mesh_t* mesh, texture_t* tex, uv_rect_t uv)
 {
 	sprite_t* sprite = malloc(sizeof(sprite_t));
 
-	sprite->tex = tex;
 	sprite->mesh = mesh;
+	sprite->tex = tex;
+	sprite->uv = uv;
 
 	sprite->transform.pos.x = 0;
 	sprite->transform.pos.y = 0;
@@ -15,9 +16,6 @@ sprite_t* create_sprite(mesh_t* mesh, texture_t* tex)
 	sprite->transform.scale.y = 1;
 
 	sprite->transform.rotation = 0.0;
-
-	sprite->uv.x = 0.0;
-	sprite->uv.y = 0.0;
 
 	return sprite;
 }

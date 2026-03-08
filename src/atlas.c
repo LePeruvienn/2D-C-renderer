@@ -69,7 +69,7 @@ void atlas_add_image(atlas_t* atlas, image_t* img, uv_rect_t* uv)
 
 	for (unsigned int img_y = 0; img_y < img->height; img_y++)
 	{
-		unsigned int atlas_offset = ((cursor_y + img->height - img_y) * atlas->width * channels) + (cursor_x * channels);
+		unsigned int atlas_offset = ((cursor_y + img_y) * atlas->width * channels) + (cursor_x * channels);
 		unsigned int img_offset   = img_y * img->width * channels;
 
 		memcpy(atlas->data + atlas_offset, img->data + img_offset, img->width * channels);
